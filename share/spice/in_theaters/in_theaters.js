@@ -4,6 +4,14 @@
     // A change in the Rotten Tomatoes API returns images that end in _tmb.
     // This changes this to _det.
     function toDetail(img) {
+        if(/resizing\.flixster\.com/.test(img)) {
+            // Everything before the size of the image can be removed and it would still work.
+            img = img.replace(/.+\/\d+x\d+\/(.+)/, "http://$1");
+            // Better use the _det size (which is smaller) instead of the _ori size.
+            return img.replace(/_ori/, "_det");
+        }
+        
+        // Otherwise, use the old string replacement strategy.
         return img.replace(/tmb\.(jpg|png)/, "det.$1");
     }
     
@@ -14,11 +22,7 @@
         // The filename is the same as the critics_rating, but
         // lowercased and with spaces converted to dashes.
         critics_rating = critics_rating.toLowerCase().replace(/ /, '-');
-        if(is_retina) {
-            return DDG.get_asset_path('in_theaters', critics_rating + '.retina.png');
-        } else {
-            return DDG.get_asset_path('in_theaters', critics_rating + '.png');
-        }
+        return DDG.get_asset_path('in_theaters', critics_rating + ((DDG.is3x || DDG.is2x) ? '.retina.png' : '.png'));
     }
     
     env.ddg_spice_in_theaters = function(api_result) {
@@ -75,19 +79,21 @@
                     icon_image: get_image(item.ratings.critics_rating),
                     abstract: Handlebars.helpers.ellipsis(item.synopsis, 200),
                     heading: item.title,
+                    img: image,
                     img_m: image,
                     url: item.links.alternate,
-                    is_retina: is_retina ? "is_retina" : "no_retina"
+                    is_retina: ((DDG.is3x || DDG.is2x) ? 'is_retina' : 'no_retina')
                 };
             },
             templates: {
                 group: 'media',
-                detail: 'products_item_detail',
                 options: {
-                    variant: 'poster',
                     subtitle_content: Spice.in_theaters.subtitle_content,
                     rating: false,
                     buy: Spice.in_theaters.buy
+                },
+                variants: {
+                    tile: 'poster'
                 }
             }
         });

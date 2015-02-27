@@ -1,6 +1,7 @@
 package DDG::Spice::BitcoinTransaction;
 # ABSTRACT: Displays information about a bitcoin transaction using the biteasy.com API.
 
+use strict;
 use DDG::Spice;
 
 primary_example_queries "0e40627940d835d7154dcce33d6755f7ec40c7cc9e88d86291a971567bcd7ea7", 
@@ -16,8 +17,8 @@ category "finance";
 icon_url "https://www.biteasy.com/favicon.ico";
 
 attribution github => ['https://github.com/biteasy','biteasy.com'],
-            email => ['support@biteasy.com','info@biteasy.com'],
-            twitter => "biteasy",
+            email => ['support@biteasy.com','biteasy.com'],
+            twitter => ["biteasy", 'biteasy.com'],
             web => ['https://biteasy.com','biteasy.com'];
             
 triggers query_raw => qr/^(?:bitcoin transaction|btc transaction)?\s*([a-fA-F0-9]{64})$/;

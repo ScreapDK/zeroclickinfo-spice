@@ -1,6 +1,7 @@
 package DDG::Spice::PeopleInSpace;
 # ABSTRACT: Returns the number of humans currently in space
 
+use strict;
 use DDG::Spice;
 
 name "People in Space";
@@ -11,12 +12,6 @@ category "facts";
 topics "science", "geek", "trivia";
 code_url "https://github.com/duckduckgo/zeroclickinfo-spice/blob/master/lib/DDG/Spice/PeopleInSpace.pm";
 attribution github  => ["elebow", "Eddie Lebow"];
-
-#python3 << EEE
-#for n in ["people", "humans", "astronauts", "cosmonauts"]:
-#	for p in ["space", "orbit"]:
-#		print('"%s in %s", "%s are in %s", "%s who are in %s",' % (n, p, n, p, n, p))
-#EEE
 
 triggers any => "people in space", "people are in space", "people who are in space",
     "people in orbit", "people are in orbit", "people who are in orbit",
@@ -29,7 +24,7 @@ triggers any => "people in space", "people are in space", "people who are in spa
     "who's in space", "who's in orbit", "who is in space", "who is in orbit", "anyone in space", "anyone in orbit",
     "whose in space", "whose in orbit";
 
-spice to => 'http://www.howmanypeopleareinspacerightnow.com/space.json';
+spice to => 'http://www.howmanypeopleareinspacerightnow.com/peopleinspace.json';
 spice wrap_jsonp_callback => 1;
 
 handle remainder => sub {

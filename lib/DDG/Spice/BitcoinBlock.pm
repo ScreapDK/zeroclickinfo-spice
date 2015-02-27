@@ -1,6 +1,7 @@
 package DDG::Spice::BitcoinBlock;
 # ABSTRACT: Displays information about a bitcoin block using the biteasy.com API.
 
+use strict;
 use DDG::Spice;
 
 primary_example_queries "000000000000000000935d5053d80266447a6cc180e488bbb85675ca61cddfe7", 
@@ -16,8 +17,8 @@ category "finance";
 icon_url "https://www.biteasy.com/favicon.ico";
 
 attribution github => ['https://github.com/biteasy','biteasy.com'],
-            email => ['support@biteasy.com','info@biteasy.com'],
-            twitter => "biteasy",
+            email => ['support@biteasy.com','biteasy.com'],
+            twitter => ["biteasy", 'biteasy.com'],
             web => ['https://biteasy.com','biteasy.com'];
             
 triggers query_raw => qr/^(?:bitcoin block|btc block)?\s*(0{8}[a-fA-F0-9]{56})$/;

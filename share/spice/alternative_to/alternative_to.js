@@ -20,7 +20,7 @@
             },
             normalize: function(item) {
                 return {
-                    description: DDG.strip_html(DDG.strip_href(item.ShortDescription)),
+                    description: DDG.strip_html(item.ShortDescription),
                     url: item.Url,
                     icon: item.IconUrl,
                     title: item.Name,
@@ -31,7 +31,10 @@
                 detail: false,
                 item_detail: false,
                 options: {
-                    footer: Spice.alternative_to.footer
+                    footer: Spice.alternative_to.footer,
+                },
+                variants: {
+                    tileSnippet: "large"
                 }
             }
         });

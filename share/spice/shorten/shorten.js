@@ -6,18 +6,27 @@
             return Spice.failed('shorten');
         }
 
+        var script = $('[src*="/js/spice/shorten/"]')[0],
+            source = $(script).attr("src"),
+            sourceURL = decodeURIComponent(source.match(/shorten\/https?\/(.+)/)[1]);
+
         Spice.add({
             id: 'shorten',
-            data: api_result,
+            data: 
+                {
+                    "shorturl": api_result.shorturl,
+                    "sourceURL": sourceURL
+                },
             name: 'Shortened Link',
             meta: {
                 sourceUrl : 'http://is.gd/',
                 sourceName : 'is.gd',
             },
             templates: {
-                group: 'text',
+                group: 'base',
                 options: {
-                    content: Spice.shorten.shorten
+                    content: Spice.shorten.shorten,
+                    moreAt: true
                 }
             },
         });
