@@ -1,4 +1,5 @@
 package DDG::Spice::RubyGems;
+# ABSTRACT: Search for RubyGems
 
 use strict;
 use DDG::Spice;
@@ -12,7 +13,7 @@ attribution github => ['https://github.com/koosha--', 'koosha--'],
             twitter => ['https://twitter.com/_koosha_', 'koosha--'];
 
 triggers startend => 'rubygem', 'rubygems', 'ruby gems', 'ruby gem', 'gem install', 'gem';
-spice to => 'http://rubygems.org/api/v1/search.json?query=$1&callback={{callback}}';
+spice to => 'https://rubygems.org/api/v1/search.json?query=$1';
 spice wrap_jsonp_callback => 1;
 
 handle remainder => sub {

@@ -59,6 +59,10 @@ ddg_spice_test(
         '/js/spice/seat_geek/events_by_artist/beastie-boys',
         caller => 'DDG::Spice::SeatGeek::EventsByArtist',
     ),
+    'upcoming beastie boys tickets' => test_spice(
+        '/js/spice/seat_geek/events_by_artist/beastie-boys',
+        caller => 'DDG::Spice::SeatGeek::EventsByArtist',
+    ),
 );
 
 ddg_spice_test(
@@ -128,6 +132,35 @@ ddg_spice_test(
         call_type => 'include',
         caller => 'DDG::Spice::SeatGeek::EventsNearMe',
         is_cached => 0
+    ),
+    DDG::Request->new(
+        query_raw => "concerts nearby",
+        location => test_location("de")
+    ) => test_spice(
+        '/js/spice/seat_geek/events_near_me/51.2000/6.4333',
+        call_type => 'include',
+        caller => 'DDG::Spice::SeatGeek::EventsNearMe',
+        is_cached => 0
+    ),
+);
+
+ddg_spice_test(
+    [qw( DDG::Spice::SeatGeek::Sports )],
+    'upcoming matches milan' => test_spice(
+        '/js/spice/seat_geek/sports/milan',
+        caller => 'DDG::Spice::SeatGeek::Sports'
+    ),
+    'events uefa' => test_spice(
+        '/js/spice/seat_geek/sports/uefa',
+        caller => 'DDG::Spice::SeatGeek::Sports'
+    ),
+    'tickets mba' => test_spice(
+        '/js/spice/seat_geek/sports/mba',
+        caller => 'DDG::Spice::SeatGeek::Sports'
+    ),
+    'schedule nlb' => test_spice(
+        '/js/spice/seat_geek/sports/nlb',
+        caller => 'DDG::Spice::SeatGeek::Sports'
     ),
 );
 

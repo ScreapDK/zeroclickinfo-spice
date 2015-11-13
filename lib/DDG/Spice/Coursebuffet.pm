@@ -1,4 +1,5 @@
 package DDG::Spice::Coursebuffet;
+# ABSTRACT: Online course search
 
 use strict;
 use DDG::Spice;
@@ -15,7 +16,7 @@ name "CourseBuffet";
 source "CourseBuffet";
 
 # could not find any relevant category, more like 'education'
-category "special"; 
+category "special";
 
 # We have all kinds of courses listing few of those categories here
 topics "math", "programming", "computing", "science", "web_design";
@@ -38,7 +39,7 @@ my @providers = (
 );
 my $providers_str = join('|', @providers);
 
-triggers any => 'online course', 'online courses', 'course online', 'courses online', @providers;
+triggers any => 'online', 'learn', @providers;
 
 handle query_lc => sub {
     # MOOC provider specific search returns courses for the specified provider
@@ -49,6 +50,11 @@ handle query_lc => sub {
     # Generic course search
     if (/\bonline courses?\b/ || /\bcourses? online\b/) {
         return "standard", "courses", trim("$` $'");
+    }
+    
+    # Course search type "Learn X Online" and "Online X courses".
+    if ( /online (.*) courses?/ || /learn (.*) online/) {
+        return "standard", "courses", $1;
     }
 
     return;
